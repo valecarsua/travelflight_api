@@ -1,0 +1,343 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Usuarios",
+        "description": "Esta API permite gestionar los usuarios registrados en la aplicación, incluyendo operaciones para obtener y agregar usuarios.",
+        "contact": {
+            "email": "soporte@miempresa.com"
+        },
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/usuarios": {
+            "get": {
+                "summary": "Obtener un listado de los usuarios registrados en la aplicación",
+                "description": "Este endpoint devuelve todos los usuarios registrados en el sistema.",
+                "operationId": "d57cb6c6a223fe9801b81b52dcac45df",
+                "responses": {
+                    "200": {
+                        "description": "Operación exitosa",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Juan"
+                                            },
+                                            "apellido": {
+                                                "type": "string",
+                                                "example": "Pérez"
+                                            },
+                                            "cedula": {
+                                                "type": "string",
+                                                "example": "1234567890"
+                                            },
+                                            "correo": {
+                                                "type": "string",
+                                                "example": "juan@correo.com"
+                                            },
+                                            "estado": {
+                                                "type": "string",
+                                                "example": "activo"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No hay usuarios disponibles",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 404
+                                        },
+                                        "data": {
+                                            "type": "string",
+                                            "example": "No hay registros disponibles"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Crear un nuevo usuario",
+                "description": "Este endpoint permite crear un nuevo usuario en el sistema.",
+                "operationId": "96d159a6919ad7ade81fd7af5c7a6be8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "cedula",
+                                    "correo",
+                                    "password",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Juan"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Pérez"
+                                    },
+                                    "cedula": {
+                                        "type": "string",
+                                        "example": "1234567890"
+                                    },
+                                    "correo": {
+                                        "type": "string",
+                                        "example": "juan@correo.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "contraseña123"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuario creado exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 201
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Juan"
+                                                },
+                                                "apellido": {
+                                                    "type": "string",
+                                                    "example": "Pérez"
+                                                },
+                                                "cedula": {
+                                                    "type": "string",
+                                                    "example": "1234567890"
+                                                },
+                                                "correo": {
+                                                    "type": "string",
+                                                    "example": "juan@correo.com"
+                                                },
+                                                "estado": {
+                                                    "type": "string",
+                                                    "example": "activo"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en la validación de los datos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "integer",
+                                            "example": 400
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "example": "El campo 'nombre' es obligatorio."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/usuarios/editar/{id}": {
+            "put": {
+                "summary": "Actualizar un usuario",
+                "description": "Este endpoint permite actualizar los datos de un usuario existente.",
+                "operationId": "93d6802f15130e95fac4356fd37b0684",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre",
+                                    "apellido",
+                                    "cedula",
+                                    "correo",
+                                    "password",
+                                    "estado"
+                                ],
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "apellido": {
+                                        "type": "string",
+                                        "example": "Sánchez"
+                                    },
+                                    "cedula": {
+                                        "type": "string",
+                                        "example": "987654321"
+                                    },
+                                    "correo": {
+                                        "type": "string",
+                                        "example": "carlos@correo.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "activo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado exitosamente"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/editar-parcial/{id}": {
+            "patch": {
+                "summary": "Actualizar parcialmente un usuario",
+                "description": "Este endpoint permite actualizar parcialmente los datos de un usuario existente.",
+                "operationId": "021da7169b8b68a1df23115d1cb20186",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Carlos"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "inactivo"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Usuario actualizado parcialmente"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        },
+        "/api/usuarios/{id}": {
+            "delete": {
+                "summary": "Eliminar un usuario",
+                "description": "Este endpoint elimina un usuario del sistema.",
+                "operationId": "0f00f1d6dae33b81a874725503534c06",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID del usuario",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuario eliminado exitosamente"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        }
+    }
+}
