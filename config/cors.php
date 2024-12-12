@@ -7,9 +7,7 @@ return [
     'allowed_methods' => ['*'], // Métodos HTTP permitidos (GET, POST, PUT, DELETE, etc.)
 
     'allowed_origins' => [
-        'https://travelflight-4tqmi6vrk-juanma2802s-projects.vercel.app/',
-        'https://travelflight-ui.vercel.app/',
-        'https://travelflight-ui-juanma2802-juanma2802s-projects.vercel.app/' 
+        '*'
         
     ], // Aquí debes colocar la URL de tu frontend
 
