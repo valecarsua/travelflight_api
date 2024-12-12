@@ -9,11 +9,11 @@ use App\Http\Controllers\Api\VueloController;
 use App\Http\Controllers\Api\ReservaController;
 
 Route::post('/login', [UsuarioController::class, 'login']);
-
+Route::post('/usuarios/crear', [UsuarioController::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/usuarios', [UsuarioController::class, 'index']);
     Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-    Route::post('/usuarios/crear', [UsuarioController::class, 'store']);
+    
     Route::put('/usuarios/editar/{id}', [UsuarioController::class, 'update']);
     Route::patch('/usuarios/editar-parcial/{id}', [UsuarioController::class, 'updatePartial']);
     Route::delete('/usuarios/eliminar/{id}', [UsuarioController::class, 'destroy']);
